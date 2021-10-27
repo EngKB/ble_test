@@ -37,15 +37,14 @@ class _DiscoverPageState extends State<DiscoverPage> {
         stream: flutterReactiveBle
             .scanForDevices(withServices: [Uuid.parse(serviceUuid)]),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(itemBuilder: (context, i) {
-              return ListTile(
-                title: Text(snapshot.data!.id.toString()),
-              );
-            });
-          } else {
+          if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
+          return ListView.builder(itemBuilder: (context, i) {
+            return ListTile(
+              title: Text(snapshot.data!.id.toString()),
+            );
+          });
         },
       ),
     );
