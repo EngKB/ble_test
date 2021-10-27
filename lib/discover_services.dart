@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_elves/flutter_blue_elves.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'dart:math' as math;
 
@@ -25,13 +26,20 @@ class _DiscoverServicesState extends State<DiscoverServices> {
 
   @override
   void initState() {
+    FlutterBlueElves.instance.androidApplyBluetoothPermission((isOk) {
+      print(isOk
+          ? "The user agrees to turn on the Bluetooth permission"
+          : "The user does not agrees to turn on the Bluetooth permission");
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Scan Services"),
+      ),
       body: FutureBuilder<List<DiscoveredService>>(
         future: flutterReactiveBle
             .discoverServices(_normalizeMacAddress('C428AD6A738A')),

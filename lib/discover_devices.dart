@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_elves/flutter_blue_elves.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
-import 'dart:math' as math;
 
-class DiscoverPage extends StatefulWidget {
-  const DiscoverPage({Key? key}) : super(key: key);
+class DiscoverDevices extends StatefulWidget {
+  const DiscoverDevices({Key? key}) : super(key: key);
 
   @override
-  _DiscoverPageState createState() => _DiscoverPageState();
+  _DiscoverDevicesState createState() => _DiscoverDevicesState();
 }
 
 String serviceUuid = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class _DiscoverDevicesState extends State<DiscoverDevices> {
   final FlutterReactiveBle flutterReactiveBle = FlutterReactiveBle();
-  String _normalizeMacAddress(String mac) {
-    String newStr = '';
-    int step = 2;
-    for (int i = 0; i < mac.length; i += step) {
-      newStr += mac.substring(i, math.min(i + step, mac.length));
-      if (i + step < mac.length) newStr += ':';
-    }
-    return newStr;
-  }
 
   @override
   void initState() {
-    flutterReactiveBle.discoverServices(_normalizeMacAddress('C428AD6A738A'));
+    FlutterBlueElves.instance.androidApplyBluetoothPermission((isOk) {
+      print(isOk
+          ? "The user agrees to turn on the Bluetooth permission"
+          : "The user does not agrees to turn on the Bluetooth permission");
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Scan Devices"),
+      ),
       body: StreamBuilder<DiscoveredDevice>(
         stream: flutterReactiveBle
             .scanForDevices(withServices: [Uuid.parse(serviceUuid)]),
