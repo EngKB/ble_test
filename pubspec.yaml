@@ -37,6 +37,8 @@ dependencies:
   flutter_reactive_ble: ^5.0.1
   permission_handler: ^8.2.5
   flutter_blue_elves: ^0.1.4
+  flutter_bluetooth_basic: ^0.1.7
+  location: ^4.3.0
 
 dev_dependencies:
   flutter_test:

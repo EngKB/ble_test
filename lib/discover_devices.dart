@@ -31,8 +31,9 @@ class _DiscoverDevicesState extends State<DiscoverDevices> {
         title: const Text("Scan Devices"),
       ),
       body: StreamBuilder<DiscoveredDevice>(
-        stream: flutterReactiveBle
-            .scanForDevices(withServices: [Uuid.parse(serviceUuid)]),
+        stream: flutterReactiveBle.scanForDevices(
+          withServices: [Uuid.parse(serviceUuid)],
+        ),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
