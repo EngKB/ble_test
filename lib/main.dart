@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                                     builder: (context) =>
                                         const DiscoverDevices()));
                           },
-                          child: const Text("Scan Services"),
+                          child: const Text("Scan Devices"),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                                     builder: (context) =>
                                         const DiscoverServices()));
                           },
-                          child: const Text("Scan Devices"),
+                          child: const Text("Scan Services"),
                         )
                       ],
                     ),
